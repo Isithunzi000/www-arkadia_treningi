@@ -1,0 +1,12 @@
+{
+  "name": "www-arkadia_treningi",
+  "private": true,
+  "description": "Kalkulator kosztow treningu umiejetnosci dla oficjalnego klienta arkadia.rpg.pl",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "test:e2e": "node --test e2e/*.e2e.test.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.49.0"
+  }
+}

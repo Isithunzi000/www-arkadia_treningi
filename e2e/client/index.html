@@ -1,0 +1,918 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html lang='pl' dir='ltr' manifest="client.appcache">
+<head>
+    <meta name='Author' content='Arkadia MUD' />
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+    <meta name='keywords' content='arkadia mud gra fabularna rpg graj klient' />
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Arkadia" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+
+    <title>Arkadia MUD</title>
+    <script type="application/ld+json">
+    {
+        "@context" : "https://schema.org",
+        "@type" : "WebSite",
+        "name" : "Arkadia MUD",
+        "url" : "https://arkadia.rpg.pl/"
+    }
+    </script>
+
+    <link rel="manifest" href="manifest.json"/>
+    <link rel="canonical" href="https://arkadia.rpg.pl/"/>
+
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="images/apple-touch-icon-76x76.png"/>
+    <link rel="apple-touch-icon" sizes="120x120" href="images/apple-touch-icon-120x120.png"/>
+    <link rel="apple-touch-icon" sizes="152x152" href="images/apple-touch-icon-152x152.png"/>
+
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico"/>
+
+    <meta property="og:title" content="Arkadia MUD"/>
+    <meta property="og:site_name" content="Arkadia MUD"/>
+    <meta property="og:description" content="Darmowa tekstowa gra fabularna, w której jednocześnie może uczestniczyć wielu graczy. Każdy z nich, wcielając się w wykreowaną przez siebie postać, przemierza świat inspirowany realiami Warhammer Fantasy RPG i światem z cyklu książek o wiedźminie Geralcie Andrzeja Sapkowskiego."/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content="https://arkadia.rpg.pl/images/bg_metroblack.jpg"/>
+
+    <link rel='stylesheet' type='text/css' href='css/kendo/kendo.common.min.css'/>
+    <link rel='stylesheet' type='text/css' href='css/kendo/kendo.metroblack.min.css' title='metroblack' disabled/>
+    <link rel='stylesheet' type='text/css' href='css/kendo/kendo.black.min.css' title='black' disabled/>
+    <link rel='stylesheet' type='text/css' href='css/kendo/kendo.moonlight.min.css' title='moonlight' disabled/>
+    <link rel='stylesheet' type='text/css' href='css/font-awesome.min.css'/>
+    <link rel='stylesheet' type='text/css' href='css/client.css'/>
+
+    <link rel='prefetch' type='text/css' href='css/kendo/kendo.black.min.css'/>
+    <link rel='prefetch' type='text/css' href='css/kendo/kendo.moonlight.min.css'/>
+
+    <script type='text/javascript' src='js/jquery.min.js'></script>
+    <script type="text/javascript">
+        $('html').addClass('js');
+    </script>
+    <script type='text/javascript' src='js/kendo.min.js'></script>
+    <script type='text/javascript' src='js/kendo.culture.pl-PL.min.js'></script>
+    <script type='text/javascript' src='js/lz.string.min.js'></script>
+    <script type='text/javascript' src='js/rangy.js'></script>
+    <script type='text/javascript' src='js/md5.min.js'></script>
+    <script type='text/javascript' src='js/pako.min.js'></script>
+    <script type='text/javascript' src='js/client.min.js'></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EEZ02417HR"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-EEZ02417HR');
+    </script>
+</head>
+<body>
+    <div id='client' class='k-content'>
+        <div id='header'>
+            <div id='topmenu'></div>
+            <div id='topmenu_hidden'>
+                <input type="submit" id="button_show_topmenu" class="button" title="Wciśnij, aby wyświetlić górne menu."/>
+            </div>
+        </div>
+        <div id="login" class='interface'>
+            <span id="notification_login" class="notification_interface"></span>
+            <div id='login_main' class='main flex_column'>
+                <div id='login_main_top'></div>
+                <div id="connect_window" class="login_window k-content">
+                    <img id="connect_window_img" src="images/logo.svg" alt="Arkadia MUD"/>
+                    <h1 class="uppercase">Witaj na Arkadii</h1>
+                    <div id="js_body" class="connect_window_body">
+                        <h4>
+                            <span>Do poprawnego wyświetlenia tej strony wymagana jest przeglądarka z włączonym JavaScript.</span>
+                        </h4>
+                    </div>
+                    <div id="websocket_body" class="connect_window_body">
+                        <h4>
+                            <span>Do poprawnego działania tej strony wymagana jest przeglądarka z zaimplementowanym protokołem WebSocket.</span>
+                        </h4>
+                    </div>
+                    <div id="version_update_body" class="connect_window_body">
+                        <h4>
+                            <span>Proszę odświeżyć stronę w celu aktualizacji klienta do najnowszej wersji (<span class="current_version"></span>).</span>
+                        </h4>
+                    </div>
+                    <div id="shutdown_body" class="connect_window_body">
+                        <h4>
+                            <span>Arkadia nie jest w tej chwili dostępna.</span>
+                        </h4>
+                    </div>
+                    <div id="failed_connection_body" class="connect_window_body">
+                        <h4>
+                            <span>Nie udało się nawiązać połączenia. Powodem może być zablokowanie możliwości łączenia poprzez protokół Websocket.</span>
+                        </h4>
+                    </div>
+                    <div id="no_connection_body" class="connect_window_body">
+                        <h4>
+                            <span>Połączenie zostało przerwane.</span>
+                        </h4>
+                    </div>
+                    <div id="connecting_body" class="connect_window_body">
+                        <h4>
+                            <span>Nawiązywanie połączenia.</span>
+                        </h4>
+                    </div>
+                    <div id="login_body" class="connect_window_body">
+                        <h5 class="uppercase">Imię postaci lub email konta</h5>
+                        <input id='input_connect_login' class='k-textbox lowercase' type='text' value='' inputmode="email" title=''/>
+                        <h5 class="uppercase">Hasło</h5>
+                        <input id='input_connect_password' class='k-textbox' type='password' value='' title=''/>
+                        <div class='clear'></div>
+                        <div class='notification'></div>
+                        <div class='clear'></div>
+                        <input type="submit" id="button_login" class="button main_button" title="Wciśnij, aby się zalogować." value="Zaloguj się"/>
+                        <div class='clear'></div>
+                        <input type="submit" id="button_go_to_create_account" class="button k-button" title="Wciśnij, aby założyć nowe konto." value="Załóż konto"/>
+                        <div class='clear'></div>
+                    </div>
+                </div>
+                <div id="create_account_window" class="login_window k-content">
+                    <h4>
+			<span>Podaj adres email, do którego będzie przypisane twoje konto na Arkadii.</span>
+                    </h4>
+                    <h4>
+                        <span>Otrzymasz na niego wiadomość z hasłem do logowania, więc ważne jest, by był on działający i aktualny.</span>
+                    </h4>
+                    <h4>
+                        <span>Na Arkadii można posiadać tylko jedno konto.</span>
+                    </h4>
+                    <div class='clear'></div>
+                    <h5 class="uppercase">Twój adres email</h5>
+                    <input id='input_create_account' class='k-textbox lowercase' type='email' value='' title=''/>
+                    <div class='clear'></div>
+                    <div class='notification'></div>
+                    <div class='clear'></div>
+                    <input type="submit" id="button_go_to_connect" class="button" title="Wciśnij, aby cofnąć się do ekranu logowania." value="Cofnij"/>
+                    <input type="submit" id="button_create_account" class="button main_button" title="Wciśnij, aby założyć nowe konto." value="Załóż konto"/>
+                    <div class='clear'></div>
+                </div>
+                <div id='login_main_bottom'></div>
+            </div>
+        </div>
+        <div id='account' class='interface'>
+            <span id="notification_account" class="notification_interface"></span>
+            <div id='account_main' class='main flex_column'>
+                <div id='account_main_top'></div>
+                <div id="account_menu_window" class="account_window">
+                    <ul id='panelbar_account_menu' class='panelbar'>
+                        <li>
+                            <span>Dane konta</span>
+                            <div id="acount_menu_details">
+                                <div class='clear'></div>
+                                <div id='acount_menu_details_text'></div>
+                                <div class='clear'></div>
+                            </div>
+                        </li>
+                        <li>
+                            <span>Postacie</span>
+                            <div id="acount_menu_chars">
+                                <div class='clear'></div>
+                                <input type="submit" id="button_go_to_create_char" class="button" title="Wciśnij, aby stworzyć nową postać." value="Stwórz postać"/>
+                                <div class='clear'></div>
+                                <h5 class="uppercase show_no_chars">Brak postaci na koncie</h5>
+                                <h5 class="uppercase show_chars">Lista postaci</h5>
+                                <div id="listview_chars_list" class="listview show_chars"></div>
+                                <div class='clear'></div>
+                                <div class='notification'></div>
+                                <div class='clear'></div>
+                                <input type="submit" id="button_login_char" class="button show_chars" title="Wciśnij, aby zalogować się na postać." value="Zaloguj się"/>
+                                <input type="submit" id="button_toggle_block_char" class="button show_chars" title="Wciśnij, aby zablokować postać." value="Zablokuj"/>
+                                <div class='clear show_chars'></div>
+                            </div>
+                        </li>
+                        <li>
+                            <span>Zmiana emaila</span>
+                            <div id="acount_menu_change_email">
+                                <div class='clear'></div>
+                                <h5 class="uppercase">Podaj hasło</h5>
+                                <input id='input_change_email_password' class='k-textbox' type='password' value='' title=''/>
+                                <h5 class="uppercase">Podaj nowy adres email</h5>
+                                <input id='input_change_email' class='k-textbox' type='email' value='' title=''/>
+                                <div class='clear'></div>
+                                <div class='notification'></div>
+                                <div class='clear'></div>
+                                <input type="submit" id="button_change_email" class="button main_button" title="Wciśnij, aby zmienić adres email konta." value="Zmień email"/>
+                                <div class='clear'></div>
+                            </div>
+                        </li>
+                        <li>
+                            <span>Zmiana hasła</span>
+                            <div id="acount_menu_change_password">
+                                <div class='clear'></div>
+                                <h5 class="uppercase">Podaj stare hasło</h5>
+                                <input id='input_change_password_old' class='k-textbox' type='password' value='' title=''/>
+                                <h5 class="uppercase">Podaj nowe hasło</h5>
+                                <input id='input_change_password_first' class='k-textbox' type='password' value='' title=''/>
+                                <h5 class="uppercase">Potwierdź nowe hasło</h5>
+                                <input id='input_change_password_second' class='k-textbox' type='password' value='' title=''/>
+                                <div class='clear'></div>
+                                <div class='notification'></div>
+                                <div class='clear'></div>
+                                <input type="submit" id="button_change_password" class="button main_button" title="Wciśnij, aby zmienić hasło na konto i postaci." value="Zmień hasło"/>
+                                <div class='clear'></div>
+                            </div>
+                        </li>
+                        <li>
+                            <span>Blokada konta</span>
+                            <div id="acount_menu_block_account">
+                                <div class='clear'></div>
+                                <h5 class="uppercase show_block_account">Podaj hasło</h5>
+                                <input id='input_block_account_password' class='k-textbox show_block_account' type='password' value='' title=''/>
+                                <h5 class="uppercase show_block_account">Ustaw czas końca blokady</h5>
+                                <input id='datetime_picker_block_account' class='show_block_account datetime_picker'/>
+                                <div class='clear'></div>
+                                <div class='notification'></div>
+                                <div class='clear'></div>
+                                <input type="submit" id="button_block_account" class="button main_button show_block_account" title="Wciśnij, aby zablokować konto." value="Zablokuj konto"/>
+                                <input type="submit" id="button_unblock_account" class="button main_button show_unblock_account" title="Wciśnij, aby odblokować konto." value="Odblokuj konto"/>
+                                <div class='clear'></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div id="create_char_window" class="account_window">
+                    <ul id='panelbar_create_char' class='panelbar'>
+                        <li>
+                            <span>Imię</span>
+                            <div id="create_char_set_name">
+                                <div class='clear'></div>
+                                <h5 class="uppercase">Wybierz imię postaci</h5>
+                                <input id='input_char_name' class='k-textbox capitalize' type='text' value='' title=''/>
+                                <div class='clear'></div>
+                                <div id="notification_name" class="notification"></div>
+                                <h4>
+                                    <p>Imię musi być zgodne z konwencją fantasy.</p>
+                                    <p>Nie może być to imię lub nazwa własna występujące w twórczości literackiej lub filmowej.</p>
+                                    <p>Nie może być nazwą żadnej rzeczy lub czynności w języku polskim lub angielskim.</p>
+                                    <p>Musi dać się odmienić zgodnie z regułami gramatycznymi języka polskiego i bez wykorzystania apostrofów.</p>
+                                    <p>Nie może być wulgarne, obraźliwe lub prześmiewcze.</p>
+                                    <p>Jeśli nie masz pomysłu na imię, możesz skorzystać z generatora, który uwzględni wybraną rasę postaci:</p>
+                                    <div class='clear'></div>
+                                    <input type="submit" id="button_generate_name" class="button" title="Wciśnij, aby wygenerować imię dla postaci." value="Generuj imię"/>
+                                </h4>
+                            </div>
+                        </li>
+                        <li>
+                            <span>Odmiana imienia</span>
+                            <div id="create_char_set_declension">
+                                <div class='clear'></div>
+                                <h4>Arkadia jest grą w języku polskim, konieczne jest więc podanie odmiany imienia przez przypadki.</h4>
+                                <span class="uppercase">Mianownik</span>
+                                <input id='input_name_nominative' class='k-textbox capitalize' type='text' placeholder="Kto? Co?" value='' title='' readonly/>
+                                <div class='clear'></div>
+                                <span class="uppercase">Dopełniacz</span>
+                                <input id='input_name_genitive' class='k-textbox capitalize' type='text' placeholder="Kogo? Czego?" value='' title=''/>
+                                <div class='clear'></div>
+                                <span class="uppercase">Celownik</span>
+                                <input id='input_name_dative' class='k-textbox capitalize' type='text' placeholder="Komu? Czemu?" value='' title=''/>
+                                <div class='clear'></div>
+                                <span class="uppercase">Biernik</span>
+                                <input id='input_name_accusative' class='k-textbox capitalize' type='text' placeholder="Kogo? Co?" value='' title=''/>
+                                <div class='clear'></div>
+                                <span class="uppercase">Narzędnik</span>
+                                <input id='input_name_instrumental' class='k-textbox capitalize' type='text' placeholder="Z kim? Z czym?" value='' title=''/>
+                                <div class='clear'></div>
+                                <span class="uppercase">Miejscownik</span>
+                                <input id='input_name_locative' class='k-textbox capitalize' type='text' placeholder="O kim? O czym?" value='' title=''/>
+                                <div class='clear'></div>
+                            </div>
+                        </li>
+                        <li>
+                            <span>Rasa i płeć</span>
+                            <div id="create_char_set_race_gender">
+                                <div class='clear'></div>
+                                <h4>Gra na Arkadii opiera się na odgrywaniu postaci, wybór rasy decyduje więc nie tylko o cechach, takich jak siła czy inteligencja, ale również o tym jak należy się zachowywać i jakiego traktowania spodziewać się od innych.</h4>
+                                <h4>Na pierwszą postać najlepiej wybrać człowieka.</h4>
+                                <h5 class="uppercase">Wybierz rasę</h5>
+                                <input id="dropdown_set_race" class='dropdown'/>
+                                <h5 class="uppercase">Wybierz płeć</h5>
+                                <input id="dropdown_set_gender" class='dropdown'/>
+                                <div class='clear'></div>
+                            </div>
+                        </li>
+                        <li>
+                            <span>Wygląd</span>
+                            <div id="create_char_set_appearance">
+                                <div class='clear'></div>
+                                <h4>Na wygląd postaci będą się składały dwa przymiotniki opisujące jej cechy szczególne.</h4>
+                                <h4>Dostępny wybór może być ograniczony zależnie od płci i rasy postaci.</h4>
+                                <h5 class="uppercase">Wybierz pierwszy przymiotnik</h5>
+                                <input id="dropdown_set_first_adjective" class='dropdown'/>
+                                <h5 class="uppercase">Wybierz drugi przymiotnik</h5>
+                                <input id="dropdown_set_second_adjective" class='dropdown'/>
+                                <div class='clear'></div>
+                                <input type="submit" id="button_randomize_appearance" class="button" title="Wciśnij, aby wybrać losowe przymiotniki." value="Wylosuj"/>
+                                <div class='clear'></div>
+                            </div>
+                        </li>
+                        <li>
+                            <span>Miejsce startu</span>
+                            <div id="acount_menu_set_startloc">
+                                <div class='clear'></div>
+                                <h4>Na miejsce startu można wybrać Nuln w domenie Imperium (inspirowana światem Warhammera) lub Novigrad w domenie Ishtar (inspirowana światem Wiedźmina).</h4>
+                                <h4>Nie jest to wybór ostateczny, postać będzie mogła swobodnie przemieszczać się między domenami.</h4>
+                                <h5 class="uppercase">Wybierz miejsce startu</h5>
+                                <input id="dropdown_set_startloc" class='dropdown'/>
+                                <div class='clear'></div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class='clear'></div>
+                    <div id="notification_create_char" class='notification'></div>
+                    <div class='clear'></div>
+                    <input type="submit" id="button_create_char" class="button" title="Wciśnij, aby stworzyć postać." value="Stwórz postać"/>
+                    <div class='clear'></div>
+                    <input type="submit" id="button_go_to_account_menu" class="button" title="Wciśnij, aby cofnąć się do ekranu konta." value="Cofnij"/>
+                    <div class='clear'></div>
+                </div>
+                <div id='account_main_bottom'></div>
+            </div>
+        </div>
+        <div id='game' class='interface'>
+            <span id="notification_game" class="notification_interface"></span>
+            <div id='panel_hidden'>
+                <div id='minimap_output' class="map_output panel_elem">
+                </div>
+                <div id='popup_panel_chars' class="popup">
+                    <div class="flex_column"></div>
+                </div>
+                <div id='panel_chars' class="panel_elem">
+                    <div id="listview_panel_chars" class="listview k-textbox"></div>
+                </div>
+                <div id='keyboard' class="panel_elem">
+                </div>
+                <div id='directions_touch' class="flex_row panel_elem">
+                </div>
+                <div id='directions' class="panel_elem">
+                    <div id='directions_touch_buttons' class="directions_buttons flex_row">
+                        <input type="submit" id='zerknij' class='flex_expand button' value='zerknij' title='Zerknij'/>
+                        <input type="submit" id='idz' class='flex_expand button' value='idź' title='Idź przed siebie'/>
+                    </div>
+                    <ul>
+                        <li>
+                            <ul>
+                                <li><input type="submit" id='polnocny-zachod' class='button directions k-no-hover' value='nw' title='Idź na północny-zachód'/></li>
+                                <li><input type="submit" id='polnoc' class='button directions k-no-hover' value='n' title='Idź na północ'/></li>
+                                <li><input type="submit" id='polnocny-wschod' class='button directions k-no-hover' value='ne' title='Idź na północny-wschód'/></li>
+                            </ul>
+                            <ul>
+                                <li><input type="submit" id='zachod' class='button directions k-no-hover' value='w' title='Idź na zachód'/></li>
+                                <li></li>
+                                <li><input type="submit" id='wschod' class='button directions k-no-hover' value='e' title='Idź na wschód'/></li>
+                            </ul>
+                            <ul>
+                                <li><input type="submit" id='poludniowy-zachod' class='button directions k-no-hover' value='sw' title='Idź na południowy-zachód'/></li>
+                                <li><input type="submit" id='poludnie' class='button directions k-no-hover' value='s' title='Idź na południe'/></li>
+                                <li><input type="submit" id='poludniowy-wschod' class='button directions k-no-hover' value='se' title='Idź na południowy-wschód'/></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <ul>
+                                <li><input type="submit" id='gora' class='button directions k-no-hover' value='u' title='Idź do góry'/></li>
+                            </ul>
+                            <ul>
+                                <li><input type="submit" id='dol' class='button directions k-no-hover' value='d' title='Idź na dół'/></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div id='directions_custom_buttons' class="directions_buttons flex_row"></div>
+                </div>
+                <div id='health_bar' class='progressbar panel_elem panel_progressbar' title='Kondycja'><span class="fa fa-plus-circle"></span><span class='progressbar_text'>Kondycja</span></div>
+                <div id='mana_bar' class='progressbar panel_elem panel_progressbar' title='Mana'><span class="fa fa-flask"></span><span class='progressbar_text'>Mana</span></div>
+                <div id='fatigue_bar' class='progressbar panel_elem panel_progressbar' title='Zmęczenie'><span class="fa fa-heartbeat"></span><span class='progressbar_text'>Zmęczenie</span></div>
+                <div id='encumbrance_bar' class='progressbar panel_elem panel_progressbar' title='Obciążenie'><span class="fa fa-balance-scale"></span><span class='progressbar_text'>Obciążenie</span></div>
+                <div id='panic_bar' class='progressbar panel_elem panel_progressbar' title='Panika'><span class="fa fa-exclamation-circle"></span><span class='progressbar_text'>Panika</span></div>
+                <div id='stuffed_bar' class='progressbar panel_elem panel_progressbar' title='Głód'><span class="fa fa-cutlery"></span><span class='progressbar_text'>Głód</span></div>
+                <div id='soaked_bar' class='progressbar panel_elem panel_progressbar' title='Pragnienie'><span class="fa fa-glass"></span><span class='progressbar_text'>Pragnienie</span></div>
+                <div id='intox_bar' class='progressbar panel_elem panel_progressbar' title='Upicie'><span class="fa fa-beer"></span><span class='progressbar_text'>Upicie</span></div>
+                <div id='headache_bar' class='progressbar panel_elem panel_progressbar' title='Kac'><span class="fa fa-frown-o"></span><span class='progressbar_text'>Kac</span></div>
+                <div id='exp_bar' class='progressbar panel_elem panel_progressbar' title='Postępy'><span class="fa fa-level-up"></span><span class='progressbar_text'>Postępy</span></div>
+                <div id='form_bar' class='progressbar panel_elem panel_progressbar' title='Forma'><span class="fa fa-star"></span><span class='progressbar_text'>Forma</span></div>
+            </div>
+            <div id='game_main' class='main flex_column'>
+                <div id='panel_main' class='flex_row'>
+                    <div id='panel_left' class='panel flex_row flex_shrink'>
+                        <div id='panel_elems_left' class='panel_elems flex_column flex_shrink'></div>
+                        <div id='panel_buttons_left' class='panel_buttons flex_column flex_shrink'></div>
+                    </div>
+                    <div id='panel_middle' class='flex_expand'>
+                        <div id='panel_top' class='panel'>
+                            <div id='panel_buttons_top' class='panel_buttons flex_row'></div>
+                            <div id='panel_progressbars_top' class='panel_progressbars'></div>
+                        </div>
+                        <div id='background_map_output' class='map_output'></div>
+                        <div id='main_text_output' class='text_output'><div id='main_text_output_msg_wrapper' class='text_output_msg_wrapper'></div><br/></div>
+                        <div id='main_footer'>
+                            <div id='panel_bottom' class='panel'>
+                                <div id='panel_progressbars_bottom' class='panel_progressbars'></div>
+                                <div id='panel_buttons_bottom' class='panel_buttons flex_row'></div>
+                            </div>
+                            <div id='bottommenu'></div>
+                        </div>
+                    </div>
+                    <div id='panel_right' class='panel flex_row flex_shrink'>
+                        <div id='panel_buttons_right' class='panel_buttons flex_column flex_shrink'></div>
+                        <div id='panel_elems_right' class='panel_elems flex_column flex_shrink'></div>
+                    </div>
+                </div>
+                <div id='panel_touch'></div>
+            </div>
+            <div id="logs_dialog" class='dialog_window flex_column'>
+                <div id="logs_dialog_header" class='dialog_header'>
+                    <div id="logs_dialog_selection">
+                        <input id="dropdown_logs_date" class='dropdown'/>
+                        <div id="logs_dialog_actions">
+                            <input type="submit" id="button_replay_logs" class="button" title="Wciśnij, aby odegrać cały log lub zaznaczony fragment." value="Odegraj"/>
+                            <input type="submit" id="button_save_logs" class="button diskaccess" title="Wciśnij, aby zapisać do pliku html cały log lub zaznaczony fragment." value="Zapisz"/>
+                        </div>
+                    </div>
+                    <div id="logs_dialog_replay">
+                        <button type="submit" id='button_play_replay_logs' class='button'></button>
+                        <button type="submit" id='button_backward_replay_logs' class='button' title='Wciśnij, aby cofnąć odgrywanie do ostatniego komunikatu z loga.'><span class="fa fa-step-backward "></span></button>
+                        <button type="submit" id='button_forward_replay_logs' class='button' title='Wciśnij, aby przejść z odgrywaniem do następnego komunikatu z loga.'><span class="fa fa-step-forward"></span></button>
+                        <button type="submit" id='button_stop_replay_logs' class='button' title='Wciśnij, aby zakończyć odgrywanie loga.'><span class="fa fa-stop"></span></button>
+                        <div class='clear'></div>
+                        <input id="slider_replay_logs" class="slider" value="0" />
+                        <label id="label_replay_logs" class="k-content"></label>
+                    </div>
+                </div>
+                <div id="logs_output" class='text_output flex_expand'><div id='logs_output_msg_wrapper' class='text_output_msg_wrapper'></div><br/></div>
+            </div>
+            <div id="messages_dialog" class='dialog_window flex_column'>
+                <div id="messages_dialog_header" class='dialog_header'>
+                    <select id="multiselect_messages_types" class="multiselect"></select>
+                </div>
+                <div id="messages_output" class='text_output flex_expand'><div id='messages_output_msg_wrapper' class='text_output_msg_wrapper'></div><br/></div>
+            </div>
+            <div id="conf_dialog" class='dialog_window flex_column'>
+                <div id="conf_dialog_header" class='dialog_header'>
+                    <input type="submit" id="button_undo_conf" class="button change_button" title="Wciśnij, aby cofnąć wprowadzone zmiany." value="Cofnij"/>
+                    <input type="submit" id="button_save_conf" class="button change_button" title="Wciśnij, aby zapisać ustawienia klienta." value="Zapisz"/>
+                    <input type="submit" id="button_help_conf" class="button" title="Wciśnij, aby wyświetlić pomoc dotyczącą ustawień klienta." value="?"/>
+                </div>
+                <div id="conf_dialog_body" class="k-state-default flex_expand">
+                    <h4>Skórka</h4>
+                    <input id="dropdown_conf_theme" class='dropdown'/>
+                    <div class='clear'></div>
+                    <h4>Typ czcionki</h4>
+                    <input id="dropdown_conf_font_type" class='dropdown'/>
+                    <div class='clear'></div>
+                    <h4>Wielkość czcionki</h4>
+                    <input id="dropdown_conf_font_size" class='dropdown'/>
+                    <div class='clear'></div>
+                    <h4>Logowanie</h4>
+                    <input id="dropdown_conf_logging" class='dropdown'/>
+                    <div class='clear'></div>
+                    <h4>Czasy komend w logach</h4>
+                    <input id="dropdown_conf_logging_times" class='dropdown'/>
+                    <div class='clear'></div>
+                    <h4>Czasy komend na głównym ekranie</h4>
+                    <input id="dropdown_conf_output_times" class='dropdown'/>
+                    <div class='clear'></div>
+                    <h4>Ilość komunikatów na głównym ekranie</h4>
+                    <input id="dropdown_conf_output_limit" class='dropdown'/>
+                    <div class='clear'></div>
+                    <h4>Echo komend na głównym ekranie</h4>
+                    <input id="dropdown_conf_output_command_echo" class='dropdown'/>
+                    <div class='clear'></div>
+                    <h4>Mapa w tle głównego ekranu</h4>
+                    <input id="dropdown_conf_background_map" class='dropdown'/>
+                    <div class='clear'></div>
+                    <h4>Ilość komend zapamiętywanych w historii</h4>
+                    <input id="dropdown_conf_history_limit" class='dropdown'/>
+                    <div class='clear'></div>
+                    <h4>Dodatkowe komendy w historii</h4>
+                    <select id="multiselect_conf_extra_history" class="multiselect"></select>
+                    <div class='clear'></div>
+                    <h4>Treść ostatniej użytej komendy</h4>
+                    <input id="dropdown_conf_input_echo" class='dropdown'/>
+                    <div class='clear'></div>
+                    <h4>Separator w ręcznie wprowadzanych komendach</h4>
+                    <input id="dropdown_conf_input_split" class='dropdown'/>
+                    <div class='clear'></div>
+                    <h4>Zmienne w ręcznie wprowadzanych komendach</h4>
+                    <input id="dropdown_conf_input_variables" class='dropdown'/>
+                    <div class='clear'></div>
+                    <h4>Blokowanie komend przez puste zmienne</h4>
+                    <input id="dropdown_conf_blocking_variables" class='dropdown'/>
+                    <div class='clear'></div>
+                    <h4>Kolejność w panelu postaci</h4>
+                    <input id="dropdown_conf_panel_chars_order" class='dropdown'/>
+                    <div class='clear'></div>
+                    <h4>Panele dotykowe</h4>
+                    <input id="multiselect_conf_touch_panels" class='multiselect'/>
+                    <div class='clear'></div>
+                    <h4>Umiejscowienie okna z akcjami</h4>
+                    <input id="dropdown_conf_actions_popup_position" class='dropdown'/>
+                    <div class='clear'></div>
+                    <h4>Umiejscowienie przycisków na bocznych panelach</h4>
+                    <input id="dropdown_conf_side_buttons_position" class='dropdown'/>
+                    <div class='clear'></div>
+                    <h4>Panel przy górnej krawędzi okna</h4>
+                    <select id="multiselect_conf_panel_top" class="multiselect"></select>
+                    <div class='clear'></div>
+                    <h4>Panel przy prawej krawędzi okna</h4>
+                    <select id="multiselect_conf_panel_right" class="multiselect"></select>
+                    <div class='clear'></div>
+                    <h4>Panel przy dolnej krawędzi okna</h4>
+                    <select id="multiselect_conf_panel_bottom" class="multiselect"></select>
+                    <div class='clear'></div>
+                    <h4>Panel przy lewej krawędzi okna</h4>
+                    <select id="multiselect_conf_panel_left" class="multiselect"></select>
+                    <div class='clear'></div>
+                    <h4>Kolory pasków stanu</h4>
+                    <div id="conf_dialog_progressbars_colors" class="flex_row">
+                        <div id="conf_dialog_progressbars_colors_left" class="conf_colorpicker_column">
+                            <input id='colorpicker_conf_health_bar' class='colorpicker progressbar_colorpicker' title="Wybierz jaki ma być kolor paska stanu kondycji."/><span>Kondycja</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_mana_bar' class='colorpicker progressbar_colorpicker' title="Wybierz jaki ma być kolor paska stanu many."/><span>Mana</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_fatigue_bar' class='colorpicker progressbar_colorpicker' title="Wybierz jaki ma być kolor paska stanu zmęczenia."/><span>Zmęczenie</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_encumbrance_bar' class='colorpicker progressbar_colorpicker' title="Wybierz jaki ma być kolor paska stanu obciążenia."/><span>Obciążenie</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_panic_bar' class='colorpicker progressbar_colorpicker' title="Wybierz jaki ma być kolor paska stanu paniki."/><span>Panika</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_stuffed_bar' class='colorpicker progressbar_colorpicker' title="Wybierz jaki ma być kolor paska stanu głodu."/><span>Głód</span>
+                        </div>
+                        <div id="conf_dialog_progressbars_colors_right" class="conf_colorpicker_column">
+                            <input id='colorpicker_conf_soaked_bar' class='colorpicker progressbar_colorpicker' title="Wybierz jaki ma być kolor paska stanu pragnienia."/><span>Pragnienie</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_intox_bar' class='colorpicker progressbar_colorpicker' title="Wybierz jaki ma być kolor paska stanu upicia."/><span>Upicie</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_headache_bar' class='colorpicker progressbar_colorpicker' title="Wybierz jaki ma być kolor paska stanu kaca."/><span>Kac</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_exp_bar' class='colorpicker progressbar_colorpicker' title="Wybierz jaki ma być kolor paska stanu postępów."/><span>Postępy</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_form_bar' class='colorpicker progressbar_colorpicker' title="Wybierz jaki ma być kolor paska stanu formy."/><span>Forma</span>
+                        </div>
+                    </div>
+                    <div class='clear'></div>
+                    <h4>Kolory w panelu postaci</h4>
+                    <div id="conf_dialog_panel_chars_colors" class="flex_row">
+                        <div id="conf_dialog_panel_chars_colors_left" class="conf_colorpicker_column">
+                            <input id='colorpicker_conf_char_defense_target' class='colorpicker panel_chars_colorpicker' title="Wybierz jaki ma być kolor celu obrony."/><span>Cel obrony</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_char_team_leader' class='colorpicker panel_chars_colorpicker' title="Wybierz jaki ma być kolor przywódcy drużyny."/><span>Przywódca druzyny</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_char_team' class='colorpicker panel_chars_colorpicker' title="Wybierz jaki ma być kolor drużyny."/><span>Drużyna</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_char_avatar' class='colorpicker panel_chars_colorpicker' title="Wybierz jaki ma być kolor twojej postaci."/><span>Twoja postać</span>
+                        </div>
+                        <div id="conf_dialog_panel_chars_colors_right" class="conf_colorpicker_column">
+                            <input id='colorpicker_conf_char_attack_target' class='colorpicker panel_chars_colorpicker' title="Wybierz jaki ma być kolor celu ataku."/><span>Cel ataku</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_char_avatar_target' class='colorpicker panel_chars_colorpicker' title="Wybierz jaki ma być kolor przeciwnika."/><span>Przeciwnik</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_char_enemy' class='colorpicker panel_chars_colorpicker' title="Wybierz jaki ma być kolor wrogów."/><span>Wrogowie</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_char_neutral' class='colorpicker panel_chars_colorpicker' title="Wybierz jaki ma być kolor postaci neutralnych."/><span>Neutralni</span>
+                        </div>
+                    </div>
+                    <div class='clear'></div>
+                    <h4>Kolory ansi</h4>
+                    <input type="submit" id="button_set_ansi_default" class="button" title="Wciśnij, aby przywrócić kolory domyślne." value="Domyślne"/>
+                    <div class='clear'></div>
+                    <div id="conf_dialog_ansi_colors" class="flex_row">
+                        <div id="conf_dialog_ansi_colors_left" class="conf_colorpicker_column">
+                            <input id='colorpicker_conf_ansi_black_dark' class='colorpicker ansi_colorpicker' title="Wybierz jaki ma być kod RGB koloru określanego przez Arkadię jako 'czarny'."/><span>Czarny</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_ansi_red_dark' class='colorpicker ansi_colorpicker' title="Wybierz jaki ma być kod RGB koloru określanego przez Arkadię jako 'ciemnoczerwony'."/><span>Ciemnoczerwony</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_ansi_green_dark' class='colorpicker ansi_colorpicker' title="Wybierz jaki ma być kod RGB koloru określanego przez Arkadię jako 'ciemnozielony'."/><span>Ciemnozielony</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_ansi_yellow_dark' class='colorpicker ansi_colorpicker' title="Wybierz jaki ma być kod RGB koloru określanego przez Arkadię jako 'ciemnożółty'."/><span>Ciemnożółty</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_ansi_blue_dark' class='colorpicker ansi_colorpicker' title="Wybierz jaki ma być kod RGB koloru określanego przez Arkadię jako 'ciemnoniebieski'."/><span>Ciemnoniebieski</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_ansi_magneta_dark' class='colorpicker ansi_colorpicker' title="Wybierz jaki ma być kod RGB koloru określanego przez Arkadię jako 'ciemnopurpurowy'."/><span>Ciemnopurpurowy</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_ansi_cyan_dark' class='colorpicker ansi_colorpicker' title="Wybierz jaki ma być kod RGB koloru określanego przez Arkadię jako 'ciemnocyjanowy'."/><span>Ciemnocyjanowy</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_ansi_white_dark' class='colorpicker ansi_colorpicker' title="Wybierz jaki ma być kod RGB koloru określanego przez Arkadię jako 'jasnoszary'."/><span>Jasnoszary</span>
+                        </div>
+                        <div id="conf_dialog_ansi_colors_right" class="conf_colorpicker_column">
+                            <input id='colorpicker_conf_ansi_black_bright' class='colorpicker ansi_colorpicker' title="Wybierz jaki ma być kod RGB koloru określanego przez Arkadię jako 'ciemnoszary'."/><span>Ciemnoszary</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_ansi_red_bright' class='colorpicker ansi_colorpicker' title="Wybierz jaki ma być kod RGB koloru określanego przez Arkadię jako 'czerwony'."/><span>Czerwony</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_ansi_green_bright' class='colorpicker ansi_colorpicker' title="Wybierz jaki ma być kod RGB koloru określanego przez Arkadię jako 'zielony'."/><span>Zielony</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_ansi_yellow_bright' class='colorpicker ansi_colorpicker' title="Wybierz jaki ma być kod RGB koloru określanego przez Arkadię jako 'żółty'."/><span>Żółty</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_ansi_blue_bright' class='colorpicker ansi_colorpicker' title="Wybierz jaki ma być kod RGB koloru określanego przez Arkadię jako 'niebieski'."/><span>Niebieski</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_ansi_magneta_bright' class='colorpicker ansi_colorpicker' title="Wybierz jaki ma być kod RGB koloru określanego przez Arkadię jako 'purpurowy'."/><span>Purpurowy</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_ansi_cyan_bright' class='colorpicker ansi_colorpicker' title="Wybierz jaki ma być kod RGB koloru określanego przez Arkadię jako 'cyjanowy'."/><span>Cyjanowy</span>
+                            <div class='clear'></div>
+                            <input id='colorpicker_conf_ansi_white_bright' class='colorpicker ansi_colorpicker' title="Wybierz jaki ma być kod RGB koloru określanego przez Arkadię jako 'biały'."/><span>Biały</span>
+                        </div>
+                    </div>
+                    <div class='clear'></div>
+                </div>
+            </div>
+            <div id="aliases_dialog" class='dialog_window flex_column'>
+                <div id="aliases_dialog_header" class='dialog_header'>
+                    <input type="submit" id="button_add_alias" class="button" title="Wciśnij, aby dodać alias." value="Dodaj"/>
+                    <input type="submit" id="button_undo_aliases" class="button change_button" title="Wciśnij, aby cofnąć wprowadzone zmiany." value="Cofnij"/>
+                    <input type="submit" id="button_save_aliases" class="button change_button" title="Wciśnij, aby zapisać konfigurację aliasów." value="Zapisz"/>
+                    <input type="submit" id="button_help_aliases" class="button" title="Wciśnij, aby wyświetlić pomoc dotyczącą aliasów." value="?"/>
+                    <div class='clear'></div>
+                    <input id='input_alias_command' class='k-textbox' type='text' value='' placeholder="Komenda aliasu..." title='Wprowadź tu komendę wywołującą alias.'/>
+                    <div class='clear'></div>
+                    <textarea id='textarea_alias_replacement' class='k-textbox' type='text' value='' placeholder="Rozwinięcie aliasu..." title='Wprowadź tu komendy, do których ma się rozwinąć alias.'></textarea>
+                </div>
+                <div id="listview_aliases_list" class="listview k-textbox flex_expand"></div>
+            </div>
+            <div id="macros_dialog" class='dialog_window flex_column'>
+                <div id="macros_dialog_header" class='dialog_header'>
+                    <input type="submit" id="button_add_macro" class="button" title="Wciśnij, aby dodać makro." value="Dodaj"/>
+                    <input type="submit" id="button_undo_macros" class="button change_button" title="Wciśnij, aby cofnąć wprowadzone zmiany." value="Cofnij"/>
+                    <input type="submit" id="button_save_macros" class="button change_button" title="Wciśnij, aby zapisać konfigurację makr." value="Zapisz"/>
+                    <input type="submit" id="button_help_macros" class="button" title="Wciśnij, aby wyświetlić pomoc dotyczącą makr." value="?"/>
+                    <div class='clear'></div>
+                    <input id='dropdown_macro_key' class='dropdown' title='Wybierz klawisz, który ma wywołać makro.'/>
+                    <div class='clear'></div>
+                    <textarea id='textarea_macro_replacement' class='k-textbox' type='text' value='' placeholder="Rozwinięcie makra..." title='Wprowadź tu komendy, do których ma się rozwinąć makro.'></textarea>
+                </div>
+                <div id="listview_macros_list" class="listview k-textbox flex_expand"></div>
+            </div>
+            <div id="buttons_dialog" class='dialog_window flex_column'>
+                <div id="buttons_dialog_header" class='dialog_header'>
+                    <input type="submit" id="button_add_button" class="button" title="Wciśnij, aby dodać przycisk." value="Dodaj"/>
+                    <input type="submit" id="button_undo_buttons" class="button change_button" title="Wciśnij, aby cofnąć wprowadzone zmiany." value="Cofnij"/>
+                    <input type="submit" id="button_save_buttons" class="button change_button" title="Wciśnij, aby zapisać konfigurację przycisków." value="Zapisz"/>
+                    <input type="submit" id="button_help_buttons" class="button" title="Wciśnij, aby wyświetlić pomoc dotyczącą przycisków." value="?"/>
+                    <div class='clear'></div>
+                    <div class='flex_row'>
+                        <input id='input_button_command' class='k-textbox flex_expand' type='text' value='' placeholder="Nazwa przycisku..." title='Wprowadź tu nazwę przycisku.'/>
+                        <input id='dropdown_button_panel' class='dropdown flex_shrink' title='Wybierz panel, na którym ma być umieszczony przycisk.'/>
+                    </div>
+                    <div class='clear'></div>
+                    <textarea id='textarea_button_replacement' class='k-textbox' type='text' value='' placeholder="Rozwinięcie przycisku..." title='Wprowadź tu komendy, które ma wywołać wciśnięcie przycisku.'></textarea>
+                </div>
+                <div id="listview_buttons_list" class="listview k-textbox flex_expand"></div>
+            </div>
+            <div id="actions_dialog" class='dialog_window flex_column'>
+                <div id="actions_dialog_header" class='dialog_header'>
+                    <input type="submit" id="button_add_action" class="button" title="Wciśnij, aby dodać akcję." value="Dodaj"/>
+                    <input type="submit" id="button_undo_actions" class="button change_button" title="Wciśnij, aby cofnąć wprowadzone zmiany." value="Cofnij"/>
+                    <input type="submit" id="button_save_actions" class="button change_button" title="Wciśnij, aby zapisać konfigurację akcji." value="Zapisz"/>
+                    <input type="submit" id="button_help_actions" class="button" title="Wciśnij, aby wyświetlić pomoc dotyczącą akcji." value="?"/>
+                    <div class='clear'></div>
+                    <div class='flex_row'>
+                        <input id='input_action_command' class='k-textbox flex_expand' type='text' value='' placeholder="Nazwa akcji..." title='Wprowadź tu nazwę akcji.'/>
+                        <input id='dropdown_action_team_role' class='dropdown flex_shrink' title='Wybierz przy jakiej roli twojej postaci w drużynie akcja ma być dostępna.'/>
+                    </div>
+                    <div class='clear'></div>
+                    <select id="multiselect_action_char_type" class="multiselect" data-placeholder="Filtr grup postaci..." title='Filtr pozwala ograniczyć grupę celów, dla których akcja ma być dostępna.'></select>
+                    <div class='clear'></div>
+                    <textarea id='textarea_action_replacement' class='k-textbox' type='text' value='' placeholder="Rozwinięcie akcji..." title='Wprowadź tu komendy, które ma wywołać wciśnięcie akcji.'></textarea>
+                </div>
+                <div id="listview_actions_list" class="listview k-textbox flex_expand"></div>
+            </div>
+            <div id="patterns_dialog" class='dialog_window flex_column'>
+                <div id="patterns_dialog_header" class='dialog_header'>
+                    <input type="submit" id="button_add_pattern" class="button" title="Wciśnij, aby dodać wzorzec tekstu." value="Dodaj"/>
+                    <input type="submit" id="button_undo_patterns" class="button change_button" title="Wciśnij, aby cofnąć wprowadzone zmiany." value="Cofnij"/>
+                    <input type="submit" id="button_save_patterns" class="button change_button" title="Wciśnij, aby zapisać konfigurację wzroców tekstu." value="Zapisz"/>
+                    <input type="submit" id="button_help_patterns" class="button" title="Wciśnij, aby wyświetlić pomoc dotyczącą wzroców tekstu." value="?"/>
+                    <div class='clear'></div>
+                    <input id='input_pattern_regexp' class='k-textbox' type='text' value='' placeholder="Wzorzec tekstu..." title='Wprowadź tu wyrażenie regularne będące wzorcem do wyszukiwania tekstu.'></input>
+                    <div class='clear'></div>
+                    <div class='flex_row'>
+                        <input id='dropdown_pattern_replacement_flag' class='dropdown flex_shrink' title='Ustaw czy pasujący do wzorca tekst ma zostać zmieniony.'/>
+                        <input id='input_pattern_replacement' class='k-textbox flex-expand' type='text' value='' placeholder="Zmieniony tekst..." title='Wprowadź tu na co ma zostać zmieniony tekst pasujący do wzorca.'></input>
+                    </div>
+                    <div class='clear'></div>
+                    <input id='dropdown_pattern_color_flag' class='dropdown' title='Ustaw czy  pasujący do wzorca tekst ma zostać pokolorowany.'/>
+                    <input id='colorpicker_pattern_color' class='colorpicker' title="Wybierz jaki ma być kod RGB koloru określanego przez Arkadię jako 'czarny'."/>
+                    <div class='clear'></div>
+                    <input id='dropdown_pattern_sound_flag' class='dropdown' title='Ustaw czy  pasujący do wzorca tekst ma wywołać jakiś dźwięk.'/>
+                    <input id='dropdown_pattern_sound' class='dropdown' title='Wybierz jaki dźwięk ma wywołać tekst pasujący do wzorca.'/>
+                </div>
+                <div id="listview_patterns_list" class="listview k-textbox flex_expand"></div>
+            </div>
+        </div>
+        <div id="export_import_dialog" class='dialog_window flex_column'>
+            <div id="export_import_dialog_header" class='dialog_header'>
+                <div class='diskaccess'>
+                    <h4>Zapis na dysku</h4>
+                    <input type="submit" id="button_export_conf_to_file" class="button" title="Wciśnij, aby zapisać konfigurację do pliku." value="Eksport"/>
+                    <div id="button_import_conf_from_file" class="button k-upload-button">
+                        <input type="file" id="upload_import_conf_from_file" class="upload" title="Wciśnij, aby wczytać konfigurację z pliku."/>
+                        <span>Import</span>
+                    </div>
+                    <div class='clear'></div>
+                    <h4>Zapis na koncie na Arkadii</h4>
+                </div>
+                <input type="submit" id="button_export_conf_to_mud" class="button" title="Wciśnij, aby zapisać konfigurację na Arkadii." value="Eksport"/>
+                <input type="submit" id="button_import_conf_from_mud" class="button" title="Wciśnij, aby wczytać konfigurację z Arkadii." value="Import"/>
+                <div class='clear'></div>
+                <input id='input_export_conf' class='k-textbox' type='text' value='' placeholder="Nazwa zapisu..." title='Wprowadź tu nazwę zapisu.'/>
+            </div>
+            <div id="listview_import_conf" class="listview k-textbox flex_expand"></div>
+        </div>
+            <div id="maps_dialog" class='dialog_window flex_column'>
+                <div id="maps_dialog_header" class='dialog_header'>
+                    <input id="dropdown_maps_domain" class='dropdown'/>
+                    <input type="submit" id="button_maps_go_to_domain" class="button" title="Wciśnij, aby przejść do mapy domeny." value="&lt;&lt;"/>
+                    <div class='clear'></div>
+                    <input id="dropdown_maps_area" class='dropdown'/>
+                    <input type="submit" id="button_maps_zoom_in" class="button" title="Wciśnij, aby przybliżyć." value="+"/>
+                    <input type="submit" id="button_maps_zoom_out" class="button" title="Wciśnij, aby oddalić." value="–"/>
+                    <input type="submit" id="button_maps_legend" class="button" title="Wciśnij, aby wyświetlić legendę." value="?"/>
+                </div>
+                <div id="main_map_output" class='map_output flex_expand'><div id='main_map_output_wrapper'></div></div>
+            </div>
+            <div id="maps_legend_dialog" class='dialog_window'>
+                <div id="maps_legend_body">
+                    <span>B</span> - bank<br/>
+                    <span>D</span> - tartak<br/>
+                    <span>F</span> - fontanna, źródło wody<br/>
+                    <span>G</span> - gospoda, sprzedaż żywności<br/>
+                    <span>I</span> - krawiec<br/>
+                    <span>K</span> - kowal<br/>
+                    <span>L</span> - biblioteka<br/>
+                    <span>M</span> - medytacja<br/>
+                    <span>N</span> - nabrzeże<br/>
+                    <span>P</span> - poczta<br/>
+                    <span>R</span> - skup ryb<br/>
+                    <span>Q</span> - skup rud<br/>
+                    <span>S</span> - sklep<br/>
+                    <span>T</span> - tablica ogłoszeniowa<br/>
+                    <span>U</span> - usługi inne<br/>
+                    <span>W</span> - wozownia<br/>
+                    <span>V</span> - skup skór<br/>
+                    <span>Y</span> - skup mięsa<br/>
+                    <span>Z</span> - zielarz<br/>
+                    <span>#</span> - przejście z bramą<br/>
+                    <span>^</span> - przejście góra/doł między sąsiednimi lokacjami<br/>
+                    <span>1</span>..<span>9</span> - przejście góra/doł między oddalonymi lokacjami <br/>
+                    <div class='clear'></div>
+                </div>
+            </div>
+            <div id="help_mud_dialog" class='dialog_window flex_column'>
+                <div id="help_mud_dialog_header" class='dialog_header'>
+                    <input id="dropdown_help_mud_category" class='dropdown'/>
+                    <div class='clear'></div>
+                    <input id="dropdown_help_mud_subject" class='dropdown'/>
+                    <input type="submit" id="button_help_mud_back" class="button" title="Wciśnij, aby wrócić do poprzedniego tematu." value="&lt;&lt;"/>
+                    <input type="submit" id="button_help_mud_forward" class="button" title="Wciśnij, aby wrócić do następnego tematu." value=">>"/>
+                </div>
+                <div id="help_mud_output" class='text_output flex_expand'><div id='help_mud_output_msg_wrapper' class='text_output_msg_wrapper'></div></div>
+            </div>
+            <div id="help_client_dialog" class='dialog_window flex_column'>
+                <div id="help_client_dialog_header" class='dialog_header'>
+                    <input id="dropdown_help_client_category" class='dropdown'/>
+                </div>
+                <div id="help_client_output" class='text_output flex_expand'><div id='help_client_output_msg_wrapper' class='text_output_msg_wrapper'></div></div>
+            </div>
+            <div id="mud_dialog" class='dialog_window'>
+                <div id="mud_dialog_body" class="info_dialog_body">
+                    <p>
+                        Arkadia jest mudem - tekstową grą fabularną, w której jednocześnie może uczestniczyć wielu graczy. Każdy z nich, wcielając się w dowolnie wykreowaną przez siebie postać, przemierza świat inspirowany dwoma bardzo popularnymi pierwowzorami fantasy - jedna z dwóch połączonych domen Arkadii czerpie z Warhammer Fantasy RPG, druga natomiast bazuje na świecie opisanym przez Andrzeja Sapkowskiego w cyklu książek o wiedźminie Geralcie.<br/>
+                    </p>
+                    <p>
+                        Gra działa na zasadach fan fiction i za uczestnictwo w niej nie są pobierane żadne opłaty. Jej silnik (driver i mudlib) powstał na podstawie kodu udostępnionego przez szwecki mud <a href="https://www.genesismud.org" target="_blank">Genesis</a>. Arkadia została w pełni zlokalizowana - wszystkie komunikaty z muda oraz komendy do kierowania postacią są w języku polskim, jednakże nie używa się w nich znaków diakrytycznych.
+                    </p>
+                    <p>
+                        Linki związane z mudem:
+                        <ul>
+                            <li><a href="https://arkadia.rpg.pl/forum/" target="_blank">Forum Arkadii</a></li>
+                            <li><a href="https://wikipedia.arkadia.rpg.pl/" target="_blank">Wikipedia Arkadii</a></li>
+                            <li><a href="https://arkadia.rpg.pl/generator-imion"  target="_blank">Generator imion fantasy</a></li>
+                        </ul>
+                    </p>
+                    <p>
+                        Adresem kontaktowym administracji muda jest <a href="mailto:arkadia@arkadia.rpg.pl">arkadia(at)arkadia.rpg.pl</a>.
+                    </p>
+                    <div class='clear'></div>
+                </div>
+            </div>
+            <div id="client_dialog" class='dialog_window'>
+                <div id="client_dialog_body" class="info_dialog_body">
+                    <p class="bold">Klient muda Arkadia wersja <span class="cached_version"></span></p>
+                    <p>
+                        Klient ten został napisany przez zespół programistów związanych z mudem Arkadia. Jedynym celem jego stworzenia było zapewnienie łatwego dostępu do muda dla wszystkich chętnych.<br/><br/>Wykorzystano w nim efekty pracy innych osób:
+                        <ul>
+                            <li><a href="http://www.phudbase.com/" target="_blank">Klienta mudów PHudBase</a></li>
+                            <li><a href="http://jquery.com/" target="_blank">Bibliotekę jQuery</a></li>
+                            <li><a href="http://www.telerik.com/kendo-ui" target="_blank">Licencjonowaną bibliotekę interfejsu użytkownika Kendo Professional</a></li>
+                            <li><a href="https://github.com/pieroxy/lz-string" target="_blank">Bibliotekę kompresji danych lz-string</a></li>
+                            <li><a href="https://code.google.com/p/rangy/" target="_blank">Bibliotekę selekcji tekstu rangy</a></li>
+                            <li><a href="https://github.com/blueimp/JavaScript-MD5" target="_blank">Generator sumy kontrolnej MD5</a></li>
+                        </ul>
+                    </p>
+                    <p>
+                        Wykorzystane mapy:
+                        <ul>
+                            <li>Mapa Ishtar (świata z sagi o Wiedźminie) autorstwa Stanislava Komárka</li>
+                            <li>Mapa świata Warhammera pochodząca z oficialnych materiałów Games Workshop</li>
+                        </ul>
+                    </p>
+                    <p>
+                        Wykorzystane grafiki pochodzą z serwisu <a href="http://www.canstockphoto.com" target="_blank">CanStockPhoto</a>.
+                    </p>
+                    <p>
+                        Wykorzystane dźwięki pochodzą z serwisu <a href="http://soundbible.com/" target="_blank">SoundBible</a>.
+                    </p>
+                    <p>
+                        Generator imion jest autorstwa Michaela Hensley'a.
+                    </p>
+                    <p>
+                        Mapa klienta powstała z pomocą graczy kierujących postaciami Coroniusa, Duruka, Finmora, Grrida, Iluandile, Maylinne, Morholta, Nargonda, Naziry, Ralandila, Torna, Ulika, Werbata oraz Zdravika.
+                    </p>
+                    <p>
+                        Wszelkie uwagi i zgłoszenia błędów dotyczące klienta prosimy umieszczać w <a href="https://arkadia.rpg.pl/forum/viewtopic.php?f=15&t=218" target="_blank">odpowiednim temacie na forum Arkadii</a>.
+                    </p>
+                    <div class='clear'></div>
+                </div>
+            </div>
+            <div id="intro_dialog" class='dialog_window'>
+                <div id="intro_dialog_body" class="info_dialog_body">
+                    <h1 class="uppercase">Witaj na Arkadii</h1>
+                    <div class='clear'></div>
+                    <p>
+                        Arkadia to w pełni darmowa, tekstowa gra fabularna, w której jednoczesnie może uczestniczyć wielu graczy. Każdy z nich, wcielając się w dowolnie wykreowaną przez siebie postać, przemierza świat inspirowany dwoma bardzo popularnymi pierwowzorami fantasy - jedna z dwóch połączonych domen Arkadii czerpie z Warhammer Fantasy RPG, druga natomiast bazuje na świecie opisanym przez Andrzeja Sapkowskiego w cyklu książek o wiedźminie Geralcie.
+                    </p>
+                    <p>
+                        Arkadia oferuje wręcz nieporównywalną z żadną inną grą komputerową możliwość odgrywania i uplastycznienia wymyślonej przez siebie postaci, ustępując w tej kwestii jedynie niczym nieograniczonym fabularnym ("papierowym") grom RPG. Od niezliczonych sposobów na wyrażanie emocji i zachowań postaci, przez jej ubiór, biżuterię, fryzurę czy tatuaże, aż do setek rodzajów różnego typu ekwipunku - dzięki tym i wielu innym aspektom oraz bogactwu i różnorodności świata, grając w Arkadię można wykreować zarówno zhańbionego Zabójcę Trolli, rycerza Zakonu Sigmara, fanatycznego kultystę Nurgle'a, jak i krasnoluda rodem z Mahakamu, walczącego o wolność Starszych Ras członka Komand Scoia'tael, czy też bogatego kupca Cechu Novigradzkiego.
+                    </p>
+                    <div class='clear'></div>
+                    <input type="submit" id="button_intro_go_to_create_account" class="button main_button" title="Wciśnij, aby założyć nowe konto." value="Załóż konto"/>
+                    <div class='clear'></div>
+                    <input type="submit" id="button_intro_go_to_connect" class="button main_button" title="Wciśnij, aby przejść do ekranu logowania." value="Zaloguj się"/>
+                    <div class='clear'></div>
+                </div>
+            </div>
+            <div id="tutorial_dialog" class='dialog_window flex_row'>
+                <div id="tutorial_dialog_left" class="flex_column flex_shrink">
+                    <input type="submit" id="button_tutorial_back" class="button" title="Wciśnij, aby wrócić do poprzedniej strony samouczka." value="&lt;"/>
+                </div>
+                <div id="tutorial_dialog_body" class="flex_expand flex_column">
+                    <div class="tutorial_page">
+                        <span class="tutorial_page_header">Czym jest Arkadia?</span>
+                        <h3>Jest grą tekstową</h3>
+                        Na Arkadii nie ma grafiki. Świat gry przedstawiony jest za pomocą opisów, a postacią steruje się komendami tekstowymi.
+                        <h3>Jest grą fabularną</h3>
+                        Mimo iż może mniej atrakcyjna wizualnie od innych gier, Arkadia daje większe pole dla wyobraźni gracza oraz interakcji między postaciami. Pozwala przez to wkroczyć dużo głębiej w wirtualny świat fantasy.
+                        <h3>Jest grą w klimacie hard-fantasy</h3>
+                        Obie domeny Arkadii - Imperium (<a href="https://pl.wikipedia.org/wiki/Warhammer_Fantasy_Roleplay" target="_blank">Warhammer</a>) i Ishtar (<a href="https://pl.wikipedia.org/wiki/Saga_o_wiedźminie" target="_blank">Saga o wiedźminie</a>) - zgodnie ze swymi pierwowzorami utrzymywane są w klimacie realizmu pełnego konfliktów i niebezpieczeństw. Od graczy oczekuje się, że będą rozumieli tę konwencję i starali się zgodnie z nią odgrywać swoje postaci.
+                    </div>
+                    <div class="tutorial_page">
+                        <span class="tutorial_page_header">Sterowanie postacią</span>
+                        <h3>Wprowadzanie komend</h3>
+                        Komendy do sterowania postacią wprowadza się w <span class="tutorial_show_element" id="tutorial_show_user_input">polu u dołu ekranu</span>. Powinny one sygnalizować co ma zrobić postać lub jakie informacje mają być wyświetlone. Przykładowo spróbuj wprowadzić:
+                        <p>
+                            <span class="tutorial_send_command tutorial_text_margin">obejrzyj siebie</span> - aby obejrzeć swoją postać<br/>
+                            <span class="tutorial_send_command tutorial_text_margin">stan</span> - aby poznać jej ogólny stan<br/>
+                            <span class="tutorial_send_command tutorial_text_margin">spojrz</span> - aby obejrzeć otoczenie<br/>
+                            <span class="tutorial_send_command tutorial_text_margin">powiedz hmm</span> - aby postać się odezwała...<br/>
+                            <span class="tutorial_send_command tutorial_text_margin">usmiechnij sie</span> - ...lub tez uśmiechnęła się<br/>
+                        </p>
+                        <h3>Ułatwienia ze strony klienta do gry</h3>
+                        Oczywiście wpisywanie tekstu nie jest szybkie czy wygodne. Dlatego też istnieje możliwość zdefiniowania <span class="tutorial_show_menu" id="tutorial_show_aliases">aliasów</span>, <span class="tutorial_show_menu" id="tutorial_show_macros">makr</span> oraz <span class="tutorial_show_menu" id="tutorial_show_buttons"><span class="tutorial_show_element" id="tutorial_show_panel_buttons">przycisków</span></span> wywołujących komendy.
+                    </div>
+                    <div class="tutorial_page">
+                        <span class="tutorial_page_header">Poruszanie się</span>
+                        <h3>Komendy wyjść z lokacji</h3>
+                        Postać porusza się przechodząc pomiędzy lokacjami. Służą do tego komendy będące nazwami wyjść dostępnych w jej aktualnym otoczeniu. Są to zazwyczaj kierunki świata i w takim przypadku można również używać ich angielskich skrótów.
+                        Na przykład:
+                        <p class="tutorial_text_margin"><span class="tutorial_send_command">zachod</span>, <span class="tutorial_send_command">polnocny-wschod</span>, <span class="tutorial_send_command">gora</span>, <span class="tutorial_send_command">w</span>, <span class="tutorial_send_command">ne</span>, <span class="tutorial_send_command">u</span> itd.</p>
+                        <h3>Ułatwienia ze strony klienta do gry</h3>
+                        <p>Klient ułatwia poruszanie się wyświetlając <span class="tutorial_show_element" id="tutorial_show_minimap_output">mapę</span> powszechnie znanych terenów, <span class="tutorial_show_element" id="tutorial_show_directions">różę wiatrów</span> z zaznaczonymi wyjściami oraz interaktywną <span class="tutorial_show_menu" id="tutorial_show_actions"><span class="tutorial_show_element" id="tutorial_show_listview_panel_chars">listę postaci</span></span> znajdujących się na aktualnej lokacji.</p>
+                        <p>W ramach domyślnej konfiguracji zostały zdefiniowane odpowiednie <span class="tutorial_show_menu" id="tutorial_show_macros">makra</span>, które umożliwiają poruszanie się za pomocą klawiatury numerycznej.</p>
+                    </div>
+                    <div class="tutorial_page">
+                        <span class="tutorial_page_header">Co dalej?</span>
+                        <h3>Wioska startowa</h3>
+                        <p>Twoja postać rozpoczyna grę w małej wiosce startowej. Na każdej lokacji możesz tu użyć komendy <a class="tutorial_send_command" href="#">?</a>, która wyświetli pomoc dotyczącą jednego z podstawowych elementów gry. Dzięki temu dowiesz się jak korzystać z usług kowala, sklepu, poczty lub jak zdobyć pierwszy ekwipunek z urny.</p>
+                        <p>W każdej chwili możesz jednak opuścić wioskę poprzez bramę na zachodzie. Stamtąd już niedaleko do najbliższego dużego miasta, gdzie rozpocznie się prawdziwa przygoda...</p>
+                        <h3>Gdzie szukać dalszej pomocy</h3>
+                        <p>W klienta została wbudowana szczegółową pomoc dotyczącą <span class="tutorial_show_menu" id="tutorial_show_help_mud">dostępnych komend i mechaniki gry</span> oraz <span class="tutorial_show_menu" id="tutorial_show_help_client">konfiguracji klienta</span>.</p>
+                        <p>Jeśli w czasie gry zgubisz się lub jakiś element jej mechaniki będzie niejasny, to pomoc możesz znaleźć na:</p>
+                        <ul>
+                            <li><a class="tutorial_show_topmenu" id="tutorial_show_forum" href="https://arkadia.rpg.pl/forum/" target="_blank">Forum Arkadii</a></li>
+                            <li><a class="tutorial_show_topmenu" id="tutorial_show_wiki" href="https://wikipedia.arkadia.rpg.pl/" target="_blank">Wikipedii Arkadii</a></li>
+                            <li><a href="http://mudy.republika.pl/Arka/index.swf" target="_blank">Mapie świata Arkadii</a></li>
+                        </ul>
+                        <p>Aby zalogować się na Forum trzeba użyć imienia i hasła swojej postaci.</p>
+                    </div>
+                </div>
+                <div id="tutorial_dialog_right" class="flex_column flex_shrink">
+                    <input type="submit" id="button_tutorial_forward" class="button" title="Wciśnij, aby przejść do następnej strony samouczka." value=">"/>
+                </div>
+            </div>
+        </div>
+</body>
+</html>
