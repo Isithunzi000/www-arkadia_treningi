@@ -123,7 +123,13 @@ export async function uruchomKlienta() {
       '--load-extension=' + EXT_DIR
     ]
   };
-  if (process.env.CHROMIUM_PATH) launchOpts.executablePath = process.env.CHROMIUM_PATH;
+  if (process.env.CHROMIUM_PATH) {
+    launchOpts.executablePath = process.env.CHROMIUM_PATH;
+  } else {
+    // playwright domyslnie uzywa chromium-headless-shell, ktory nie obsluguje
+    // rozszerzen — kanal "chromium" to pelna przegladarka z nowym headless
+    launchOpts.channel = 'chromium';
+  }
   const context = await chromium.launchPersistentContext(userDataDir, launchOpts);
   await context.addInitScript(FAKE_WS_INIT);
   await routeKlient(context);
