@@ -142,6 +142,21 @@ test('tabela zawodow ma 30 wierszy po 14 kolumn', async () => {
   await zamknijGlowne();
 });
 
+test('tabela zawodow miesci sie w oknie bez scrolla poziomego', async () => {
+  const okno = await otworzGlowne();
+  await okno.locator('button', { hasText: 'Tabela zawodów' }).click();
+  const oknoZawody = oknoTytul('Poziomy maksymalne wg zawodu');
+  await oknoZawody.locator('table.trng-tab').waitFor({ state: 'visible' });
+  const pomiar = await oknoZawody.evaluate((o) => {
+    const wrap = o.querySelector('.trng-tab-wrap');
+    return { client: wrap.clientWidth, scroll: wrap.scrollWidth };
+  });
+  assert.ok(pomiar.scroll <= pomiar.client,
+    'tabela ' + pomiar.scroll + 'px musi miescic sie w ' + pomiar.client + 'px wrapa');
+  await oknoZawody.locator('.trng-okno-zamknij').click();
+  await zamknijGlowne();
+});
+
 test('przeciecie naglowka okna zapisuje pozycje w localStorage', async () => {
   const okno = await otworzGlowne();
   const nag = okno.locator('.trng-okno-nag');

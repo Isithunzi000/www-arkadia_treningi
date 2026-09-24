@@ -1,11 +1,11 @@
-// arkadia_treningi v1.0.1 | 23-09-2026
+// arkadia_treningi v1.0.2 | 24-09-2026
 // Kalkulator kosztow treningu umiejetnosci dla oficjalnego klienta arkadia.rpg.pl
 
 (function () {
   'use strict';
 
-  var EXT_VERSION = '1.0.1';
-  var EXT_DATE    = '23-09-2026';
+  var EXT_VERSION = '1.0.2';
+  var EXT_DATE    = '24-09-2026';
   var UPDATE_URL  = 'https://isithunzi000.github.io/www-arkadia_treningi/index.json';
 
   // =========================================================================
@@ -1375,7 +1375,7 @@
   wstrzyknijStyle();
 
   var oknoPomoc = utworzOkno('treningi-pomoc', 'Treningi — pomoc', budujPomoc, { width: 440 });
-  var oknoZawody = utworzOkno('treningi-zawody', 'Poziomy maksymalne wg zawodu', budujTabeleZawodow, { width: 560 });
+  var oknoZawody = utworzOkno('treningi-zawody', 'Poziomy maksymalne wg zawodu', budujTabeleZawodow, { width: 600 });
 
   var klawiszeNaglowka = function () {
     var wrap = el('span', 'trng-hdr-btns');
